@@ -26,6 +26,9 @@
 
 #include <telephony/ril.h>
 #define LOG_TAG "RILD"
+#ifndef LOG_NDEBUG
+#define LOG_NDEBUG 1
+#endif
 #include <log/log.h>
 #include <cutils/properties.h>
 #include <cutils/sockets.h>
@@ -145,12 +148,12 @@ int main(int argc, char **argv) {
     }
 
     if (clientId == NULL) {
-        clientId = "0";
+        clientId = "1";
     } else if (atoi(clientId) >= MAX_RILDS) {
         RLOGE("Max Number of rild's supported is: %d", MAX_RILDS);
         exit(0);
     }
-    if (strncmp(clientId, "0", MAX_CLIENT_ID_LENGTH)) {
+    if (strncmp(clientId, "1", MAX_CLIENT_ID_LENGTH)) {
         snprintf(ril_service_name, sizeof(ril_service_name), "%s%s", ril_service_name_base,
                  clientId);
     }

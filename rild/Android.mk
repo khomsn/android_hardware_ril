@@ -36,6 +36,8 @@ else
 LOCAL_INIT_RC := rild.legacy.rc
 endif
 
+LOCAL_C_INCLUDES += $(TARGET_OUT_HEADERS)/libril
+
 include $(BUILD_EXECUTABLE)
 
 endif
