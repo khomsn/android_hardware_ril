@@ -126,8 +126,8 @@ int main(int argc, char **argv) {
     // ril/socket id received as -c parameter, otherwise set to 0
     const char *clientId = NULL;
 
-    RLOGD("**RIL Daemon Started**");
-    RLOGD("**RILd param count=%d**", argc);
+    RLOGI("**RIL Daemon Started**");
+    RLOGI("**RILd param count=%d**", argc);
 
     initWithMmapSize();
     umask(S_IRGRP | S_IWGRP | S_IXGRP | S_IROTH | S_IWOTH | S_IXOTH);
@@ -210,29 +210,29 @@ int main(int argc, char **argv) {
 
     rilArgv[argc++] = "-c";
     rilArgv[argc++] = (char*)clientId;
-    RLOGD("RIL_Init argc = %d clientId = %s", argc, rilArgv[argc-1]);
+    RLOGI("RIL_Init argc = %d clientId = %s", argc, rilArgv[argc-1]);
 
     // Make sure there's a reasonable argv[0]
     rilArgv[0] = argv[0];
 
     funcs = rilInit(&s_rilEnv, argc, rilArgv);
-    RLOGD("RIL_Init rilInit completed");
+    RLOGI("RIL_Init rilInit completed");
 
     RIL_register(funcs);
 
-    RLOGD("RIL_Init RIL_register completed");
+    RLOGI("RIL_Init RIL_register completed");
 
     if (rilUimInit) {
-        RLOGD("RIL_register_socket started");
+        RLOGI("RIL_register_socket started");
         RIL_register_socket(rilUimInit, RIL_SAP_SOCKET, argc, rilArgv);
     }
 
-    RLOGD("RIL_register_socket completed");
+    RLOGI("RIL_register_socket completed");
 
     rilc_thread_pool();
 
 done:
-    RLOGD("RIL_Init starting sleep loop");
+    RLOGI("RIL_Init starting sleep loop");
     while (true) {
         sleep(UINT32_MAX);
     }
